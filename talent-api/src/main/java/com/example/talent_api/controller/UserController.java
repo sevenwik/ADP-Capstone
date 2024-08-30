@@ -3,42 +3,40 @@ package com.example.talent_api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.talent_api.User;
+import com.example.talent_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
-    com.example.talent_api.UserRepository userRepository;
+    UserRepository userRepository;
 
     @GetMapping("/users")
-    public List<com.example.talent_api.User> getAll(){
+    public List<User> getAll(){
         return userRepository.findAll();
     }
 
     @GetMapping("/users/{id}")
-    public Optional<com.example.talent_api.User> getById(@PathVariable(value="id") Long id) {
+    public Optional<User> getById(@PathVariable(value="id") Long id) {
         return userRepository.findById(id);
     }
 
     @PostMapping("/users")
-    public com.example.talent_api.User create(@RequestBody com.example.talent_api.User user) {
+    public User create(@RequestBody com.example.talent_api.User user) {
         com.example.talent_api.User response = userRepository.saveAndFlush(user);
         return response;
     }
 
     @PutMapping("/users/{id}")
-    public com.example.talent_api.User getById(@PathVariable(value="id") Long id,
-                                               @RequestBody com.example.talent_api.User userUpdates) {
-        Optional<com.example.talent_api.User> userToUpdate = userRepository.findById(id);
+    public User getById(@PathVariable(value="id") Long id,
+                                               @RequestBody User userUpdates) {
+        Optional<User> userToUpdate = userRepository.findById(id);
         if(userToUpdate.isPresent()) {
             userToUpdate.get().setUsername(userUpdates.getUsername());
             userToUpdate.get().setPassword(userUpdates.getPassword());
