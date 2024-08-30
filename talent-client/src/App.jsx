@@ -3,8 +3,10 @@ import "./App.css";
 import Login from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
 import logo from "./assets/hire-vibes-logo.jpg";
+import { useState } from "react";
 
 function App() {
+  const [users, setUsers] = useState();
   return (
     <>
       <header style={{ marginBottom: "70px" }}>
@@ -24,8 +26,11 @@ function App() {
       </header>
       <div className="App">
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/userdashboard" element={<UserDashboard />} />
+          <Route path="/login" element={<Login setUsers={setUsers} />} />
+          <Route
+            path="/userdashboard"
+            element={<UserDashboard users={users} />}
+          />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>

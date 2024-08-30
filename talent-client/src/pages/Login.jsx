@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const Login = (props) => {
+const Login = ({ setUsers }) => {
   const [formState, setFormState] = useState({ username: "", password: "" });
   const nav = useNavigate();
   const handleInputChange = (e) => {
@@ -19,7 +19,13 @@ const Login = (props) => {
       body: JSON.stringify(formState),
     });
     if (response.ok) {
-      nav("/userdashboard");
+      const user = await response.json();
+      console.log(user);
+      const users = await fetch("http://localhost:8081/api/users");
+      users.json().then((data) => {
+        setUsers(data);
+        nav("/userdashboard");
+      });
     }
   };
 

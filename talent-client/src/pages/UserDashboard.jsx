@@ -1,15 +1,15 @@
 import React from "react";
 import { UsersList } from "../components/UsersList";
 
-function UserDashboard() {
+function UserDashboard({ users }) {
   return (
     <>
-    <div>
-      <h1>This is the about page</h1>
-    </div>
-    <table class="table table-striped table-hover">
-      <UsersList users={users_data}/>
-    </table>
+      <div>
+        <h1>This is the user page</h1>
+      </div>
+      <table className="table table-striped table-hover">
+        <UsersList users={users} />
+      </table>
     </>
   );
 }
