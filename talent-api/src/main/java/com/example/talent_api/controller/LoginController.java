@@ -1,6 +1,7 @@
 package com.example.talent_api.controller;
 
-import com.example.talent_api.User;
+
+import com.example.talent_api.model.User;
 import com.example.talent_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -22,7 +23,7 @@ public class LoginController {
         if(credentials.getUsername() == null || credentials.getPassword() == null) {
             return new ResponseEntity<>(null, HttpStatusCode.valueOf(400));
         }
-        com.example.talent_api.User user = userRepository.findByUsername(credentials.getUsername());
+        User user = userRepository.findByUsername(credentials.getUsername());
         if(user == null) {
             return new ResponseEntity<>(null, HttpStatusCode.valueOf(401));
         }

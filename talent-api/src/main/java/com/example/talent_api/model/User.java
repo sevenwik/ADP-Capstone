@@ -1,4 +1,4 @@
-package com.example.talent_api;
+package com.example.talent_api.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

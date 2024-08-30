@@ -3,7 +3,7 @@ package com.example.talent_api.controller;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.talent_api.User;
+import com.example.talent_api.model.User;
 import com.example.talent_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User create(@RequestBody com.example.talent_api.User user) {
-        com.example.talent_api.User response = userRepository.saveAndFlush(user);
+    public User create(@RequestBody User user) {
+        User response = userRepository.saveAndFlush(user);
         return response;
     }
 
