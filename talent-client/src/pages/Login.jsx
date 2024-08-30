@@ -11,15 +11,20 @@ export const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("in submit");
+    const response = await fetch('http://localhost8081/api/login', {
+        headers: { "Content-Type": "application/json"},
+        method: "POST",
+        body: JSON.stringify(formState)
+    })
     console.log(formState);
   };
 
   return (
     <>
       <h1>Login</h1>
+      <div style={{ border: '2px solid black', padding: '20px' }}>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
@@ -60,6 +65,7 @@ export const Login = () => {
           Submit
         </button>
       </form>
+      </div>
     </>
   );
 };

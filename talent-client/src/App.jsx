@@ -1,14 +1,14 @@
 import { useState } from "react";
 import "./App.css";
 import { Login } from "./pages/Login";
+import logo from "./assets/hire-vibes-logo.jpg"
 
 function App() {
   return (
     <>
       <header style={{ marginBottom: '70px' }}>
-        <div>
-          <h1>HireVibes</h1>
-          <img src="talent-client/src/assets/hire-vibes-logo.jpg" alt="hire-vibes-logo" />
+        <div style={{ alignItems: 'left', border: '2px solid black', padding: '20px' }}>
+          <img src={logo} alt="hire-vibes-logo" style={{ width: '200px', height: '150px'}} />
         </div>
       </header>
       <Login />
