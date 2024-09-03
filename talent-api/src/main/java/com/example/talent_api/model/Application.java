@@ -9,12 +9,12 @@ import jakarta.persistence.Table;
 public class Application {
 	@Id
 	private long id;
-	private long userId;
-	private long jobId;
-	private String dateApplied;
-	private String coverLetter;
-	private String customResume;
-	private String appStatus;
+	private long user_id;
+	private long job_id;
+	private String date_applied;
+	private String cover_letter;
+	private String custom_resume;
+	private String application_status;
 	
 	public long getId() {
         return id;
@@ -25,50 +25,50 @@ public class Application {
     }
 
     public long getUserId() {
-        return userId;
+        return user_id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUserId(long user_id) {
+        this.user_id = user_id;
     }
 
     public long getJobId() {
-        return jobId;
+        return job_id;
     }
 
-    public void setJobId(long jobId) {
-        this.jobId = jobId;
+    public void setJobId(long job_id) {
+        this.job_id = job_id;
     }
 
     public String getDateApplied() {
-        return dateApplied;
+        return date_applied;
     }
 
-    public void setDateApplied(String dateApplied) {
-        this.dateApplied = dateApplied;
+    public void setDateApplied(String date_applied) {
+        this.date_applied = date_applied;
     }
 
     public String getCoverLetter() {
-        return coverLetter;
+        return cover_letter;
     }
 
-    public void setCoverLetter(String coverLetter) {
-        this.coverLetter = coverLetter;
+    public void setCoverLetter(String cover_letter) {
+        this.cover_letter = cover_letter;
     }
 
     public String getCustomResume() {
-        return customResume;
+        return custom_resume;
     }
 
-    public void setCustomResume(String customResume) {
-        this.customResume = customResume;
+    public void setCustomResume(String custom_resume) {
+        this.custom_resume = custom_resume;
     }
 
     public String getAppStatus() {
-        return appStatus;
+        return application_status;
     }
 
-    public void setAppStatus(String appStatus) {
-        this.appStatus = appStatus;
+    public void setAppStatus(String application_status) {
+        this.application_status = application_status;
     }
 }

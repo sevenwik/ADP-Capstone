@@ -9,8 +9,8 @@ import jakarta.persistence.Table;
 public class Manager {
 	@Id
 	private long id;
-	private long userId;
-	private String fullName;
+	private long user_id;
+	private String full_name;
 	private String email;
 	private String department;
 	private String phone;
@@ -19,11 +19,11 @@ public class Manager {
         super();
     }
 
-    public Manager(long id, long userId, String fullName, String email, String department, String phone) {
+    public Manager(long id, long user_id, String full_name, String email, String department, String phone) {
         super();
         this.id = id;
-        this.userId = userId;
-        this.fullName = fullName;
+        this.user_id = user_id;
+        this.full_name = full_name;
         this.email = email;
         this.department = department;
         this.phone = phone;
@@ -38,19 +38,19 @@ public class Manager {
     }
     
     public long getUserId() {
-        return userId;
+        return user_id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUserId(long user_id) {
+        this.user_id = user_id;
     }
 
     public String getFullName() {
-        return fullName;
+        return full_name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullName(String full_name) {
+        this.full_name = full_name;
     }
 
     public String getEmail() {

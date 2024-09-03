@@ -9,32 +9,32 @@ import jakarta.persistence.Table;
 public class Job {
 	@Id
 	private long id;
-	private long managerId;
+	private long manager_id;
 	private String department;
-	private String listingTitle;
-	private String dateListed;
-	private String dateClosed;
-	private String jobTitle;
-	private String jobDescription;
-	private String additionalInfo;
-	private String listingStatus;
+	private String listing_title;
+	private String date_listed;
+	private String date_closed;
+	private String job_title;
+	private String job_description;
+	private String additional_information;
+	private String listing_ status;
 	
 	public Job() {
         super();
     }
 
-    public Job(long id, long managerId, String department, String listingTitle, String dateListed, String dateClosed, String jobTitle, String jobDescription, String additionalInfo, String listingStatus) {
+    public Job(long id, long manager_id, String department, String listing_title, String date_listed, String date_closed, String job_title, String job_description, String additional_information, String listing_status) {
         super();
         this.id = id;
-        this.managerId = managerId;
+        this.manager_id = manager_id;
         this.department = department;
-        this.listingTitle = listingTitle;
-        this.dateListed = dateListed;
-        this.dateClosed = dateClosed;
-        this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
-        this.additionalInfo = additionalInfo;
-        this.listingStatus = listingStatus;
+        this.listing_title = listing_title;
+        this.date_listed = date_listed;
+        this.date_closed = date_closed;
+        this.job_title = job_title;
+        this.job_description = job_description;
+        this.additional_information = additional_information;
+        this.listing_status = listing_status;
     }
 
     public long getId() {
@@ -46,11 +46,11 @@ public class Job {
     }
     
     public long getManagerId() {
-        return managerId;
+        return manager_id;
     }
 
-    public void setManagerId(long managerId) {
-        this.managerId = managerId;
+    public void setManagerId(long manager_id) {
+        this.manager_id = manager_id;
     }
     
     public String getDepartment() {
@@ -62,58 +62,58 @@ public class Job {
     }
     
     public String getListingTitle() {
-        return listingTitle;
+        return listing_title;
     }
 
-    public void setListingTitle(String listingTitle) {
-        this.listingTitle = listingTitle;
+    public void setListingTitle(String listing_title) {
+        this.listing_title = listing_title;
     }
     
     public String getDateListed() {
-        return dateListed;
+        return date_listed;
     }
 
-    public void setDateListed(String dateListed) {
-        this.dateListed = dateListed;
+    public void setDateListed(String date_listed) {
+        this.date_listed = date_listed;
     }
 
     public String getDateClosed() {
-        return dateClosed;
+        return date_closed;
     }
 
-    public void setDateClosed(String dateClosed) {
-        this.dateClosed = dateClosed;
+    public void setDateClosed(String date_closed) {
+        this.date_closed = date_closed;
     }
 
     public String getJobTitle() {
-        return jobTitle;
+        return job_title;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+    public void setJobTitle(String job_title) {
+        this.job_title = job_title;
     }
 
     public String getJobDescription() {
-        return jobDescription;
+        return job_description;
     }
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
+    public void setJobDescription(String job_description) {
+        this.job_description = job_description;
     }
 
     public String getAdditionalInfo() {
-        return additionalInfo;
+        return additional_information;
     }
 
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    public void setAdditionalInfo(String additional_information) {
+        this.additional_information = additional_information;
     }
 
     public String getListingStatus() {
-        return listingStatus;
+        return listing_status;
     }
 
-    public void setListingStatus(String listingStatus) {
-        this.listingStatus = listingStatus;
+    public void setListingStatus(String listing_status) {
+        this.listing_status = listing_status;
     }
 }

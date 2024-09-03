@@ -34,11 +34,11 @@ public class Candidate {
         return id;
     }
 
-    public long getUser_id() {
+    public long getUserId() {
         return user_id;
     }
 
-    public String getFull_name() {
+    public String getFullName() {
         return full_name;
     }
 
@@ -62,11 +62,11 @@ public class Candidate {
         this.id = id;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUserId(long user_id) {
         this.user_id = user_id;
     }
 
-    public void setFull_name(String full_name) {
+    public void setFullName(String full_name) {
         this.full_name = full_name;
     }
 
