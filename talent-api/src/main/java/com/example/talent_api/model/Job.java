@@ -23,10 +23,10 @@ public class Job {
         super();
     }
 
-    public Job(long id, long managerId, String department, String listingTitle, String dateListed, String dateClosed, String jobTitle, jobDescription, String additionalInfo, String listingStatus) {
+    public Job(long id, long managerId, String department, String listingTitle, String dateListed, String dateClosed, String jobTitle, String jobDescription, String additionalInfo, String listingStatus) {
         super();
         this.id = id;
-        this.managerId = managerId
+        this.managerId = managerId;
         this.department = department;
         this.listingTitle = listingTitle;
         this.dateListed = dateListed;
@@ -61,15 +61,15 @@ public class Job {
         this.department = department;
     }
     
-    public String getlistingTitle() {
+    public String getListingTitle() {
         return listingTitle;
     }
 
     public void setListingTitle(String listingTitle) {
-        this.lisitngTitle = listingTitle;
+        this.listingTitle = listingTitle;
     }
     
-    ublic String getDateListed() {
+    public String getDateListed() {
         return dateListed;
     }
 

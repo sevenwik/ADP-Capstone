@@ -29,16 +29,16 @@ public class ManagerController {
 
     @PostMapping("/managers")
     public Manager create(@RequestBody Manager manager) {
-        manager response = managerRepository.saveAndFlush(manager);
+        Manager response = managerRepository.saveAndFlush(manager);
         return response;
     }
 
     @PutMapping("/managers/{id}")
-    public manager getById(@PathVariable(value="id") Long id,
+    public Manager getById(@PathVariable(value="id") Long id,
                                                @RequestBody Manager managerUpdates) {
         Optional<Manager> managerToUpdate = managerRepository.findById(id);
         if(managerToUpdate.isPresent()) {
-            managerToUpdate.get().setfullName(managerUpdates.getFullName());
+            managerToUpdate.get().setFullName(managerUpdates.getFullName());
             managerToUpdate.get().setEmail(managerUpdates.getEmail());
             managerToUpdate.get().setDepartment(managerUpdates.getDepartment());
             managerToUpdate.get().setPhone(managerUpdates.getPhone());

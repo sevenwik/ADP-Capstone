@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 const Login = ({ setUsers }) => {
   const [formState, setFormState] = useState({ username: "", password: "" });
   const nav = useNavigate();
@@ -24,15 +25,22 @@ const Login = ({ setUsers }) => {
       const users = await fetch("http://localhost:8081/api/users");
       users.json().then((data) => {
         setUsers(data);
-        nav("/userdashboard");
+        nav("/userDashboard");
       });
     }
   };
 
   return (
-    <>
-      <h1>Login</h1>
-      <div style={{ border: "2px solid black", padding: "20px" }}>
+    <div className="login-div">
+      <h1 style={{ textAlign: "center" }}>Login</h1>
+      <div
+        style={{
+          border: "2px solid black",
+          padding: "20px",
+          // width: "80%",
+          borderRadius: 6,
+        }}
+      >
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
@@ -58,30 +66,17 @@ const Login = ({ setUsers }) => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="form-check form-switch">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              role="switch"
-              id="flexSwitchCheckDefault"
-            />
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckDefault"
-            >
-              Show password
-            </label>
-          </div>
+          <div className="form-check form-switch"></div>
           <button
             type="submit"
             disabled={formState.password === "" || formState.username === ""}
             className="btn btn-primary"
           >
-            Submit
+            Sign In
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 export default Login;

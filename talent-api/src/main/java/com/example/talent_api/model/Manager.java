@@ -22,7 +22,7 @@ public class Manager {
     public Manager(long id, long userId, String fullName, String email, String department, String phone) {
         super();
         this.id = id;
-        this.userId = userId
+        this.userId = userId;
         this.fullName = fullName;
         this.email = email;
         this.department = department;

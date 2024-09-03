@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-public class JobController {
+public class ApplicationController {
 
     @Autowired
     ApplicationRepository appRepository;
@@ -29,16 +29,16 @@ public class JobController {
 
     @PostMapping("/applications")
     public Application create(@RequestBody Application app) {
-        app response = appRepository.saveAndFlush(app);
+        Application response = appRepository.saveAndFlush(app);
         return response;
     }
 
     @PutMapping("/applications/{id}")
-    public app getById(@PathVariable(value="id") Long id,
+    public Application getById(@PathVariable(value="id") Long id,
                                                @RequestBody Application appUpdates) {
         Optional<Application> appToUpdate = appRepository.findById(id);
         if(appToUpdate.isPresent()) {
-        	appToUpdate.get().setJobId(appUpdates.getAppId());
+        	appToUpdate.get().setJobId(appUpdates.getId());
         	appToUpdate.get().setDateApplied(appUpdates.getDateApplied());
         	appToUpdate.get().setCoverLetter(appUpdates.getCoverLetter());
         	appToUpdate.get().setCustomResume(appUpdates.getCustomResume());

@@ -14,7 +14,7 @@ public class Application {
 	private String dateApplied;
 	private String coverLetter;
 	private String customResume;
-	private appStatus;
+	private String appStatus;
 	
 	public long getId() {
         return id;

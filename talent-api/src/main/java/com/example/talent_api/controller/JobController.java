@@ -29,12 +29,12 @@ public class JobController {
 
     @PostMapping("/jobs")
     public Job create(@RequestBody Job job) {
-        job response = jobRepository.saveAndFlush(job);
+        Job response = jobRepository.saveAndFlush(job);
         return response;
     }
 
     @PutMapping("/jobs/{id}")
-    public job getById(@PathVariable(value="id") Long id,
+    public Job getById(@PathVariable(value="id") Long id,
                                                @RequestBody Job jobUpdates) {
         Optional<Job> jobToUpdate = jobRepository.findById(id);
         if(jobToUpdate.isPresent()) {
