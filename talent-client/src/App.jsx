@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
 import ManagerJobs from "./pages/ManagerJobs";
 import Register from "./pages/Register";
+import CandidateJobs from "./pages/CandidateJobs";
 import logo from "./assets/hire-vibes-logo.jpg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -63,7 +64,7 @@ function App() {
             <>
               <Route
                 path="/userDashboard"
-                element={<UserDashboard users={users} />}
+                element={<CandidateJobs jobs={jobs} user={currentUser} />}
               />
               <Route
                 path="/managerDashboard"

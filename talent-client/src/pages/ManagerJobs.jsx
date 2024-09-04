@@ -23,9 +23,6 @@ function ManagerJobs({ jobs, user, setJobs }) {
 
   const handleSave = async (job) => {
     if (isCreatingNew) {
-      // Logic to handle new job creation
-      // You might want to add this job to your jobs list or send it to a server
-      // Example:
       job.managerId = user.id;
       const response = await fetch("http://localhost:8081/api/jobs", {
         headers: { "Content-Type": "application/json" },

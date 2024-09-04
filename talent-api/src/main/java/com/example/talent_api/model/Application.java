@@ -1,16 +1,16 @@
 package com.example.talent_api.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="Application")
 public class Application {
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private long user_id;
-	private long job_id;
+    @Column(name="job_id")
+	private long jobId;
 	private String date_applied;
 	private String cover_letter;
 	private String custom_resume;
@@ -33,11 +33,11 @@ public class Application {
     }
 
     public long getJobId() {
-        return job_id;
+        return jobId;
     }
 
     public void setJobId(long job_id) {
-        this.job_id = job_id;
+        this.jobId = job_id;
     }
 
     public String getDateApplied() {
@@ -68,7 +68,7 @@ public class Application {
         return application_status;
     }
 
-    public void setAppStatus(String application_status) {
+    public void setApplication_status(String application_status) {
         this.application_status = application_status;
     }
 }

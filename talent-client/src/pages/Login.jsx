@@ -33,10 +33,10 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
           setJobs(data);
           nav("/managerDashboard");
         });
-      } else {
-        const users = await fetch("http://localhost:8081/api/users");
+      } else if (user.type === "candidate") {
+        const users = await fetch("http://localhost:8081/api/jobs");
         users.json().then((data) => {
-          setUsers(data);
+          setJobs(data);
           nav("/userDashboard");
         });
       }

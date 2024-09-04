@@ -10,6 +10,7 @@ public class Candidate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long user_id;
+
     private String full_name;
     private String email;
     private String address;

@@ -27,6 +27,10 @@ public class ApplicationController {
         return appRepository.findById(id);
     }
 
+    @GetMapping("/applications/job/{jobID}")
+    public List<Application> getByJobId(@PathVariable(value="jobID") Long jobId) {
+        return appRepository.getByJobId(jobId);
+    }
     @PostMapping("/applications")
     public Application create(@RequestBody Application app) {
         Application response = appRepository.saveAndFlush(app);
@@ -42,7 +46,7 @@ public class ApplicationController {
         	appToUpdate.get().setDateApplied(appUpdates.getDateApplied());
         	appToUpdate.get().setCoverLetter(appUpdates.getCoverLetter());
         	appToUpdate.get().setCustomResume(appUpdates.getCustomResume());
-        	appToUpdate.get().setAppStatus(appUpdates.getAppStatus());
+        	appToUpdate.get().setApplication_status(appUpdates.getAppStatus());
             appRepository.save(appToUpdate.get());
             return appToUpdate.get();
         }
