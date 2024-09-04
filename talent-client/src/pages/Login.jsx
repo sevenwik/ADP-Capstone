@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-const Login = ({ setUsers }) => {
+import { toast } from "react-toastify";
+
+const Login = ({ setUsers, setCurrentUser, setJobs }) => {
   const [formState, setFormState] = useState({ username: "", password: "" });
   const nav = useNavigate();
   const handleInputChange = (e) => {
@@ -20,13 +22,24 @@ const Login = ({ setUsers }) => {
       body: JSON.stringify(formState),
     });
     if (response.ok) {
+      toast.success("Log in success!");
       const user = await response.json();
-      console.log(user);
-      const users = await fetch("http://localhost:8081/api/users");
-      users.json().then((data) => {
-        setUsers(data);
-        nav("/userDashboard");
-      });
+      setCurrentUser(user);
+      if (user.type) {
+        const jobs = await fetch("http://localhost:8081/api/jobs");
+        jobs.json().then((data) => {
+          setJobs(data);
+          nav("/managerDashboard");
+        });
+      } else {
+        const users = await fetch("http://localhost:8081/api/users");
+        users.json().then((data) => {
+          setUsers(data);
+          nav("/userDashboard");
+        });
+      }
+    } else {
+      toast.error("Sign-in failed!");
     }
   };
 
@@ -37,11 +50,11 @@ const Login = ({ setUsers }) => {
         style={{
           border: "2px solid black",
           padding: "20px",
-          // width: "80%",
           borderRadius: 6,
+          boxShadow: "0px 14px 12px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="was-validated">
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
               Username
@@ -52,6 +65,7 @@ const Login = ({ setUsers }) => {
               id="exampleInputEmail1"
               name="username"
               onChange={handleInputChange}
+              required
             />
           </div>
           <div className="mb-3">
@@ -64,6 +78,7 @@ const Login = ({ setUsers }) => {
               id="exampleInputPassword1"
               name="password"
               onChange={handleInputChange}
+              required
             />
           </div>
           <div className="form-check form-switch"></div>

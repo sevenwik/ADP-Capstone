@@ -20,7 +20,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<User> create(@RequestBody User credentials) {
-        if(credentials.getUsername() == null || credentials.getPassword() == null) {
+        if (credentials.getUsername() == null || credentials.getPassword() == null) {
             return new ResponseEntity<>(null, HttpStatusCode.valueOf(400));
         }
         User user = userRepository.findByUsername(credentials.getUsername());

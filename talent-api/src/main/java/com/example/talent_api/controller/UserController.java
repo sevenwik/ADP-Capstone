@@ -3,9 +3,11 @@ package com.example.talent_api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.talent_api.model.Candidate;
 import com.example.talent_api.model.User;
 import com.example.talent_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +30,17 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User create(@RequestBody User user) {
+    public ResponseEntity<Object> create(@RequestBody User user) {
+        User u = userRepository.findByUsername(user.getUsername());
+        if(u != null){
+            if(u.getUsername()!=user.getUsername())
+            {
+
+                return new ResponseEntity<>("User already exists", HttpStatusCode.valueOf(409));
+            }
+        }
         User response = userRepository.saveAndFlush(user);
-        return response;
+        return new ResponseEntity<>(response,HttpStatusCode.valueOf(200));
     }
 
     @PutMapping("/users/{id}")

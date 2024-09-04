@@ -3,8 +3,12 @@ package com.example.talent_api.controller;
 import com.example.talent_api.model.Candidate;
 import com.example.talent_api.repository.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -20,14 +24,22 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates/{id}")
-    public Optional<Candidates> getById(@PathVariable(value="id") Long id) {
+    public Optional<Candidate> getById(@PathVariable(value="id") Long id) {
         return candidateRepository.findById(id);
     }
 
     @PostMapping("/candidates")
-    public Candidate create(@RequestBody Candidate candidate) {
+    public ResponseEntity<Object> create(@RequestBody Candidate candidate) {
+        List<Candidate> cand = candidateRepository.findByEmail(candidate.getEmail());
+        if(cand.size() > 0 ){
+            if(cand.get(0).getEmail()!=candidate.getEmail())
+            {
+
+                return new ResponseEntity<>("User already exists", HttpStatusCode.valueOf(409));
+            }
+        }
         Candidate response = candidateRepository.saveAndFlush(candidate);
-        return response;
+        return new ResponseEntity<>(response,HttpStatusCode.valueOf(200));
     }
 
     @PutMapping("/candidates/{id}")

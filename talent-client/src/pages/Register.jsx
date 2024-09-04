@@ -21,7 +21,42 @@ const Register = ({ setUsers }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formState);
+    if (formState.password === formState.confirmPassword) {
+      const userData = {
+        username: formState.email,
+        password: formState.password,
+        type: "candidate",
+      };
+      const userResponse = await fetch("http://localhost:8081/api/users", {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify(userData),
+      });
+      if (userResponse.ok) {
+        const user = await userResponse.json();
+        //console.log(user);
+        const candidateData = {
+          email: formState.email,
+          address: formState.address,
+          phone: formState.phone,
+          fullName: formState.full_name,
+          userId: user.id,
+        };
+        const candidateResponse = await fetch(
+          "http://localhost:8081/api/candidates",
+          {
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify(candidateData),
+          }
+        );
+        if (candidateResponse.ok) {
+          const data = await candidateResponse.json();
+          //console.log(data);
+          nav("/login");
+        }
+      }
+    }
   };
 
   return (
@@ -31,15 +66,13 @@ const Register = ({ setUsers }) => {
         style={{
           border: "2px solid black",
           padding: "20px",
-          // width: "80%",
           borderRadius: 6,
+          boxShadow: "0px 14px 12px rgba(0, 0, 0, 0.1)",
         }}
       >
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              Name
-            </label>
+            <label className="form-label">Name</label>
             <input
               type="text"
               className="form-control"
@@ -49,9 +82,7 @@ const Register = ({ setUsers }) => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Email
-            </label>
+            <label className="form-label">Email</label>
             <input
               type="Email"
               className="form-control"
@@ -61,9 +92,7 @@ const Register = ({ setUsers }) => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Phone
-            </label>
+            <label className="form-label">Phone</label>
             <input
               type="tel"
               className="form-control"
@@ -73,9 +102,7 @@ const Register = ({ setUsers }) => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Address
-            </label>
+            <label className="form-label">Address</label>
             <input
               type="text"
               className="form-control"
@@ -85,9 +112,7 @@ const Register = ({ setUsers }) => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
-            </label>
+            <label className="form-label">Password</label>
             <input
               type="password"
               className="form-control"
@@ -97,11 +122,9 @@ const Register = ({ setUsers }) => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Confirm Password
-            </label>
+            <label className="form-label">Confirm Password</label>
             <input
-              type="text"
+              type="password"
               className="form-control"
               id="exampleInputPassword1"
               name="confirmPassword"

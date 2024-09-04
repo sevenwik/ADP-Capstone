@@ -27,6 +27,11 @@ public class JobController {
         return jobRepository.findById(id);
     }
 
+    @GetMapping("/jobs/manager/{managerId}")
+    public List<Job> getByManagerId(@PathVariable(value="managerId") Long managerId) {
+       return jobRepository.findByManagerId(managerId);
+    }
+
     @PostMapping("/jobs")
     public Job create(@RequestBody Job job) {
         Job response = jobRepository.saveAndFlush(job);

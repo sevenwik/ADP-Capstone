@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   padding: 1rem;
-  background-color: #0a1f44;
+  background-color: #87ceeb;
   justify-content: space-between;
   color: white;
 }
@@ -11,7 +11,7 @@
 }
 
 .footer {
-  background-color: #0a1f44;
+  background-color: #87ceeb;
   padding: 0.2rem;
   text-align: center;
   color: white;

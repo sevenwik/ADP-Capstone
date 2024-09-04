@@ -2,14 +2,17 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
+import ManagerJobs from "./pages/ManagerJobs";
 import Register from "./pages/Register";
 import logo from "./assets/hire-vibes-logo.jpg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer } from "react-toastify";
 function App() {
   const nav = useNavigate();
   const [users, setUsers] = useState();
+  const [currentUser, setCurrentUser] = useState();
+  const [jobs, setJobs] = useState();
   const [pageState, setPageState] = useState("Login");
 
   const handleRegister = (e) => {
@@ -46,12 +49,30 @@ function App() {
         }}
       >
         <Routes>
-          <Route path="/login" element={<Login setUsers={setUsers} />} />
           <Route
-            path="/userDashboard"
-            element={<UserDashboard users={users} />}
+            path="/login"
+            element={
+              <Login
+                setUsers={setUsers}
+                setCurrentUser={setCurrentUser}
+                setJobs={setJobs}
+              />
+            }
           />
-          <Route path="*" element={<Navigate to="/login" />} />
+          {currentUser ? (
+            <>
+              <Route
+                path="/userDashboard"
+                element={<UserDashboard users={users} />}
+              />
+              <Route
+                path="/managerDashboard"
+                element={<ManagerJobs jobs={jobs} />}
+              />
+            </>
+          ) : (
+            <Route path="*" element={<Navigate to="/login" />} />
+          )}
           <Route path="/signUp" element={<Register />} />
         </Routes>
       </div>
@@ -60,6 +81,7 @@ function App() {
       <div className="footer">
         <p>&copy; HireVibes 2024</p>
       </div>
+      <ToastContainer />
     </>
   );
 }

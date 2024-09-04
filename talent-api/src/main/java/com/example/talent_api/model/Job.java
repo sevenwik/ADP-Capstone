@@ -1,5 +1,6 @@
 package com.example.talent_api.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -9,7 +10,8 @@ import jakarta.persistence.Table;
 public class Job {
 	@Id
 	private long id;
-	private long manager_id;
+    @Column(name="manager_id")
+	private long managerId;
 	private String department;
 	private String listing_title;
 	private String date_listed;
@@ -17,7 +19,7 @@ public class Job {
 	private String job_title;
 	private String job_description;
 	private String additional_information;
-	private String listing_ status;
+	private String listing_status;
 	
 	public Job() {
         super();
@@ -26,7 +28,7 @@ public class Job {
     public Job(long id, long manager_id, String department, String listing_title, String date_listed, String date_closed, String job_title, String job_description, String additional_information, String listing_status) {
         super();
         this.id = id;
-        this.manager_id = manager_id;
+        this.managerId = manager_id;
         this.department = department;
         this.listing_title = listing_title;
         this.date_listed = date_listed;
@@ -46,11 +48,11 @@ public class Job {
     }
     
     public long getManagerId() {
-        return manager_id;
+        return managerId;
     }
 
     public void setManagerId(long manager_id) {
-        this.manager_id = manager_id;
+        this.managerId = manager_id;
     }
     
     public String getDepartment() {
