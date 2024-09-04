@@ -67,7 +67,13 @@ function App() {
               />
               <Route
                 path="/managerDashboard"
-                element={<ManagerJobs jobs={jobs} />}
+                element={
+                  <ManagerJobs
+                    jobs={jobs}
+                    setJobs={setJobs}
+                    user={currentUser}
+                  />
+                }
               />
             </>
           ) : (

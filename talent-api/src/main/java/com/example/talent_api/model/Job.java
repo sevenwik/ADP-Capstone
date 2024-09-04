@@ -1,14 +1,12 @@
 package com.example.talent_api.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="Job")
 public class Job {
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
     @Column(name="manager_id")
 	private long managerId;

@@ -25,8 +25,10 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
       toast.success("Log in success!");
       const user = await response.json();
       setCurrentUser(user);
-      if (user.type) {
-        const jobs = await fetch("http://localhost:8081/api/jobs");
+      if (user.type === "manager") {
+        const jobs = await fetch(
+          `http://localhost:8081/api/jobs/manager/${user.id}`
+        );
         jobs.json().then((data) => {
           setJobs(data);
           nav("/managerDashboard");
