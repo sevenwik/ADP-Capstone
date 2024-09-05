@@ -1,46 +1,37 @@
 import React, { useRef, useState, useEffect } from "react";
-import { formatDateTime } from "../helper/helperServices"; // Ensure this is your helper function
+import { toast } from "react-toastify";
 
-const ApplicationModal = ({
-  job,
-  application,
-  showModal,
-  handleClose,
-  handleApply,
-  user,
-  isEditing,
-}) => {
+const CandidateEditProfileModal = ({ showModal, handleClose, user }) => {
   const modalRef = useRef(null);
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
-    coverLetter: "",
-    customResume: "",
+    address: "",
+    phone: "",
+    resume: "",
   });
-
-  const fetchCandidateData = (callback) => {
-    fetch(`http://localhost:8081/api/candidates/${user.id}`)
-      .then((response) => response.json())
-      .then((candidate) => {
-        callback(candidate);
-      });
-  };
 
   useEffect(() => {
     if (showModal) {
       const modal = new window.bootstrap.Modal(modalRef.current);
       modal.show();
 
-      fetchCandidateData((candidate) => {
-        setFormData({
-          name: candidate.fullName,
-          email: candidate.email,
-          coverLetter: isEditing ? application.coverLetter : "",
-          customResume: isEditing ? application.customResume : "",
+      // Fetch candidate profile data
+      fetch(`http://localhost:8081/api/candidates/${user.id}`)
+        .then((response) => response.json())
+        .then((candidate) => {
+          setFormData({
+            id: candidate.id || "",
+            userId: candidate.userId || "",
+            fullName: candidate.fullName || "",
+            email: candidate.email || "",
+            address: candidate.address || "",
+            phone: candidate.phone || "",
+            resume: candidate.resume || "",
+          });
         });
-      });
     }
-  }, [showModal, isEditing, job.id, user.id]);
+  }, [showModal, user.id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,18 +41,22 @@ const ApplicationModal = ({
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedFormData = {
-      ...formData,
-      dateApplied: isEditing
-        ? application.dateApplied
-        : formatDateTime(new Date()),
-      application_status: isEditing ? application.appStatus : "In Process",
-      jobId: job.id,
-      userId: user.id,
-    };
-    handleApply(updatedFormData);
+    const response = await fetch(
+      `http://localhost:8081/api/candidates/${formData.id}`,
+      {
+        headers: { "Content-Type": "application/json" },
+        method: "PUT",
+        body: JSON.stringify(formData),
+      }
+    );
+    if (response.ok) {
+      toast.success("Updated successfully");
+      const data = await response.json();
+      console.log(data);
+    }
+    handleClose();
   };
 
   return (
@@ -69,7 +64,7 @@ const ApplicationModal = ({
       className="modal fade"
       ref={modalRef}
       tabIndex="-1"
-      aria-labelledby="jobModalLabel"
+      aria-labelledby="candidateProfileModalLabel"
       aria-hidden="true"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
@@ -77,10 +72,8 @@ const ApplicationModal = ({
       <div className="modal-dialog" style={{ maxWidth: "60%" }}>
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="jobModalLabel">
-              {isEditing
-                ? `Edit Application for ${job.jobTitle}`
-                : job.jobTitle}
+            <h5 className="modal-title" id="candidateProfileModalLabel">
+              Edit Profile
             </h5>
             <button
               type="button"
@@ -91,26 +84,17 @@ const ApplicationModal = ({
             ></button>
           </div>
           <div className="modal-body">
-            <p>
-              <strong>Department:</strong> {job.department}
-            </p>
-            <p>
-              <strong>Job Description:</strong> {job.jobDescription}
-            </p>
-            <p>
-              <strong>Additional Info:</strong> {job.additionalInfo}
-            </p>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                  Name
+                <label htmlFor="fullName" className="form-label">
+                  Full Name
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
                   onChange={handleChange}
                   required
                 />
@@ -125,33 +109,45 @@ const ApplicationModal = ({
                   id="email"
                   name="email"
                   value={formData.email}
-                  onChange={handleChange}
-                  required
+                  readOnly
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="coverLetter" className="form-label">
-                  Cover Letter
+                <label htmlFor="address" className="form-label">
+                  Address
                 </label>
-                <textarea
+                <input
+                  type="text"
                   className="form-control"
-                  id="coverLetter"
-                  name="coverLetter"
-                  rows="3"
-                  value={formData.coverLetter}
+                  id="address"
+                  name="address"
+                  value={formData.address}
                   onChange={handleChange}
-                ></textarea>
+                />
               </div>
               <div className="mb-3">
-                <label htmlFor="customResume" className="form-label">
-                  Custom Resume (Optional)
+                <label htmlFor="phone" className="form-label">
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="resume" className="form-label">
+                  Resume
                 </label>
                 <textarea
                   className="form-control"
-                  id="customResume"
-                  name="customResume"
+                  id="resume"
+                  name="resume"
                   rows="3"
-                  value={formData.customResume}
+                  value={formData.resume}
                   onChange={handleChange}
                 ></textarea>
               </div>
@@ -160,7 +156,7 @@ const ApplicationModal = ({
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
               >
-                {isEditing ? "Update Application" : "Apply"}
+                Save Changes
               </button>
             </form>
           </div>
@@ -180,4 +176,4 @@ const ApplicationModal = ({
   );
 };
 
-export default ApplicationModal;
+export default CandidateEditProfileModal;

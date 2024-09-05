@@ -9,7 +9,8 @@ public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long user_id;
+    @Column(name="user_id")
+    private long userId;
 
     private String full_name;
     private String email;
@@ -22,7 +23,7 @@ public class Candidate {
     }
     public Candidate(long id, long user_id, String full_name, String email, String address, String phone, String resume) {
         this.id = id;
-        this.user_id = user_id;
+        this.userId = user_id;
         this.full_name = full_name;
         this.email = email;
         this.address = address;
@@ -35,7 +36,7 @@ public class Candidate {
     }
 
     public long getUserId() {
-        return user_id;
+        return userId;
     }
 
     public String getFullName() {
@@ -63,7 +64,7 @@ public class Candidate {
     }
 
     public void setUserId(long user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public void setFullName(String full_name) {

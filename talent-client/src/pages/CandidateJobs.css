@@ -1,11 +1,9 @@
-.ManagerList {
+.CandidateJobs {
   border-width: 3px;
   border-radius: 10px;
   width: 70%;
   margin: 20px auto 100px auto;
   padding: 10px;
-
-  & .click-job {
-    cursor: pointer;
-  }
+  padding-left: 40px;
+  padding-right: 40px;
 }

@@ -5,7 +5,7 @@ import UserDashboard from "./pages/UserDashboard";
 import ManagerJobs from "./pages/ManagerJobs";
 import Register from "./pages/Register";
 import CandidateJobs from "./pages/CandidateJobs";
-import logo from "./assets/hire-vibes-logo.jpg";
+import logo from "./assets/hire-vibes-logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -27,15 +27,14 @@ function App() {
     }
   };
   return (
-    <>
+    <div>
       <div className="header">
         <div className="header-title">
           <img
             src={logo}
             alt="hire-vibes-logo"
-            style={{ width: "50px", height: "35px" }}
+            style={{ width: "200px", height: "80px" }}
           />
-          <h2>Hire Vibes</h2>
         </div>
         <button className="btn btn-primary" onClick={handleRegister}>
           {pageState === "Login" ? "Sign Up" : "Sign In"}
@@ -83,13 +82,9 @@ function App() {
           <Route path="/signUp" element={<Register />} />
         </Routes>
       </div>
-      {/* <footer style={{ marginTop: "50px" }}>&copy; HireVibes 2024</footer> */}
 
-      <div className="footer">
-        <p>&copy; HireVibes 2024</p>
-      </div>
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

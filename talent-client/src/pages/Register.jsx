@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import { toast } from "react-toastify";
 const Register = ({ setUsers }) => {
   const [formState, setFormState] = useState({
     full_name: "",
@@ -56,12 +57,13 @@ const Register = ({ setUsers }) => {
           nav("/login");
         }
       }
+    } else {
+      toast.error("Something went wrong!");
     }
   };
 
   return (
     <div className="login-div">
-      <h1 style={{ textAlign: "center" }}>Register</h1>
       <div
         style={{
           border: "2px solid black",
@@ -70,6 +72,7 @@ const Register = ({ setUsers }) => {
           boxShadow: "0px 14px 12px rgba(0, 0, 0, 0.1)",
         }}
       >
+        <h1 style={{ textAlign: "center" }}>Register</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Name</label>

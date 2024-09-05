@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
-    List<Application> getByJobId(Long jobID);
+    List<Application> getByJobId(Long jobId);
+    List<Application> getByUserId(Long userId);
 }

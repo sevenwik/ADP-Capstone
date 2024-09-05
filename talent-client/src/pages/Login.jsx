@@ -47,7 +47,6 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
 
   return (
     <div className="login-div">
-      <h1 style={{ textAlign: "center" }}>Login</h1>
       <div
         style={{
           border: "2px solid black",
@@ -56,6 +55,7 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
           boxShadow: "0px 14px 12px rgba(0, 0, 0, 0.1)",
         }}
       >
+        <h1 style={{ textAlign: "center" }}>Log In</h1>
         <form onSubmit={handleSubmit} className="was-validated">
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">

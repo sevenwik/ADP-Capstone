@@ -24,8 +24,8 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates/{id}")
-    public Optional<Candidate> getById(@PathVariable(value="id") Long id) {
-        return candidateRepository.findById(id);
+    public Candidate getById(@PathVariable(value="id") Long id) {
+        return candidateRepository.findByUserId(id);
     }
 
     @PostMapping("/candidates")
@@ -47,12 +47,13 @@ public class CandidateController {
                                                @RequestBody Candidate candidateUpdates) {
         Optional<Candidate> candidateToUpdate = candidateRepository.findById(id);
         if(candidateToUpdate.isPresent()) {
+            candidateToUpdate.get().setUserId(candidateUpdates.getUserId());
             candidateToUpdate.get().setFullName(candidateUpdates.getFullName());
             candidateToUpdate.get().setEmail(candidateUpdates.getEmail());
             candidateToUpdate.get().setAddress(candidateUpdates.getAddress());
             candidateToUpdate.get().setPhone(candidateUpdates.getPhone());
             candidateToUpdate.get().setResume(candidateUpdates.getResume());
-            return candidateToUpdate.get();
+            return candidateRepository.save(candidateToUpdate.get());
         }
         return null;
     }

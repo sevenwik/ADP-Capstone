@@ -8,7 +8,8 @@ public class Application {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private long user_id;
+    @Column(name="user_id")
+	private long userId;
     @Column(name="job_id")
 	private long jobId;
 	private String date_applied;
@@ -25,11 +26,11 @@ public class Application {
     }
 
     public long getUserId() {
-        return user_id;
+        return userId;
     }
 
     public void setUserId(long user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public long getJobId() {
@@ -64,7 +65,7 @@ public class Application {
         this.custom_resume = custom_resume;
     }
 
-    public String getAppStatus() {
+    public String getApplication_status() {
         return application_status;
     }
 
