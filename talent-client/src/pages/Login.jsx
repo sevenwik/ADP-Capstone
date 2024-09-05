@@ -34,7 +34,9 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
           nav("/managerDashboard");
         });
       } else if (user.type === "candidate") {
-        const users = await fetch("http://localhost:8081/api/jobs");
+        const users = await fetch(
+          `http://localhost:8081/api/jobs/pagination?page=${0}&size=${3}`
+        );
         users.json().then((data) => {
           setJobs(data);
           nav("/userDashboard");
@@ -59,13 +61,14 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
         <form onSubmit={handleSubmit} className="was-validated">
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
-              Username
+              Email
             </label>
             <input
-              type="username"
+              type="email"
               className="form-control"
               id="exampleInputEmail1"
               name="username"
+              placeholder="Enter your e-mail"
               onChange={handleInputChange}
               required
             />
@@ -79,6 +82,7 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
               className="form-control"
               id="exampleInputPassword1"
               name="password"
+              placeholder="Enter your password"
               onChange={handleInputChange}
               required
             />

@@ -2,7 +2,9 @@ package com.example.talent_api.controller;
 
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import com.example.talent_api.model.Job;
 import com.example.talent_api.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,15 @@ public class JobController {
     @GetMapping("/jobs")
     public List<Job> getAll(){
         return jobRepository.findAll();
+    }
+
+    @GetMapping("/jobs/pagination")
+    public List<Job> getPaginatedJobs(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return jobRepository.findAll(pageable).getContent();
     }
 
     @GetMapping("/jobs/{id}")

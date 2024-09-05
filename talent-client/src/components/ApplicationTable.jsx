@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 const ApplicationsTable = ({ selectedApplications }) => {
   const [selectedApplication, setSelectedApplication] = useState();
   const [applications, setApplications] = useState(selectedApplications);
+  const [page, setPage] = useState(0);
+
   const [status, setStatus] = useState(
     selectedApplication?.appStatus || "In Process"
   );
@@ -39,13 +41,33 @@ const ApplicationsTable = ({ selectedApplications }) => {
     if (response.ok) {
       toast.success(`${action} successfully!`);
       const response = await fetch(
-        `http://localhost:8081/api/applications/job/${selectedApplication.jobId}`
+        `http://localhost:8081/api/applications/job/pagination/${
+          selectedApplication.jobId
+        }?page=${page}&size=${3}`
       );
       response.json().then((data) => {
         setApplications(data);
       });
     }
     setSelectedApplication(null);
+  };
+
+  const handlePage = async (direction) => {
+    if (direction === "next") {
+      setPage((page) => page + 1);
+    } else {
+      if (page !== 0) {
+        setPage((page) => page - 1);
+      }
+    }
+    const response = await fetch(
+      `http://localhost:8081/api/applications/job/pagination/1?page=${
+        direction === "next" ? page + 1 : page - 1
+      }&size=${3}`
+    );
+    response.json().then((data) => {
+      setApplications(data);
+    });
   };
 
   return (
@@ -73,6 +95,21 @@ const ApplicationsTable = ({ selectedApplications }) => {
             ))}
           </tbody>
         </table>
+        <button
+          className="btn btn-secondary"
+          style={{ margin: "10px" }}
+          disabled={page === 0 ? true : false}
+          onClick={() => handlePage("prev")}
+        >
+          Prev
+        </button>
+        <button
+          className="btn btn-secondary"
+          style={{ margin: "10px" }}
+          onClick={() => handlePage("next")}
+        >
+          Next
+        </button>
       </div>
 
       {selectedApplication && (

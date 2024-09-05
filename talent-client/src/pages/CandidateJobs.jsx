@@ -12,6 +12,8 @@ const CandidateJobs = ({ jobs, user }) => {
   const [applications, setApplications] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentApplication, setCurrentApplication] = useState();
+  const [page, setPage] = useState(0);
+  const [currentJobs, setCurrentJobs] = useState(jobs);
 
   const handleShowModal = (job, application = null, editing = false) => {
     setSelectedJob(job);
@@ -72,6 +74,23 @@ const CandidateJobs = ({ jobs, user }) => {
     handleCloseModal();
   };
 
+  const handlePage = async (direction) => {
+    if (direction === "next") {
+      setPage((page) => page + 1);
+    } else {
+      if (page !== 0) {
+        setPage((page) => page - 1);
+      }
+    }
+    const users = await fetch(
+      `http://localhost:8081/api/jobs/pagination?page=${
+        direction === "next" ? page + 1 : page - 1
+      }&size=${3}`
+    );
+    users.json().then((data) => {
+      setCurrentJobs(data);
+    });
+  };
   return (
     <div
       className="CandidateJobs"
@@ -100,35 +119,43 @@ const CandidateJobs = ({ jobs, user }) => {
       {userDashboardState === "Jobs" ? (
         <div>
           <div style={{ display: "flex", flexWrap: "wrap" }}>
-            {jobs
-              .filter((job) => job.listingStatus === "Open")
-              .map((job, id) => (
-                <div
-                  key={id}
-                  className="card"
-                  style={{ width: "18rem", margin: "10px" }}
-                >
-                  <div className="card-body">
-                    <h5 className="card-title">{job.jobTitle}</h5>
-                    <h6 className="card-subtitle mb-2 text-body-secondary">
-                      {job.department}
-                    </h6>
-                    <p className="card-text">{job.jobDescription}</p>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => handleShowModal(job)}
-                    >
-                      Apply
-                    </button>
-                  </div>
+            {currentJobs.map((job, id) => (
+              <div
+                key={id}
+                className="card"
+                style={{ width: "18rem", margin: "10px" }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">{job.jobTitle}</h5>
+                  <h6 className="card-subtitle mb-2 text-body-secondary">
+                    {job.department}
+                  </h6>
+                  <p className="card-text">{job.jobDescription}</p>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleShowModal(job)}
+                    disabled={job.listingStatus === "Closed" ? true : false}
+                  >
+                    {job.listingStatus === "Closed" ? "Closed" : "Apply"}
+                  </button>
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
           <div style={{ justifyContent: "space-between", display: "flex" }}>
-            <button className="btn btn-secondary" style={{ margin: "10px" }}>
+            <button
+              className="btn btn-secondary"
+              style={{ margin: "10px" }}
+              disabled={page === 0 ? true : false}
+              onClick={() => handlePage("prev")}
+            >
               Prev
             </button>
-            <button className="btn btn-secondary" style={{ margin: "10px" }}>
+            <button
+              className="btn btn-secondary"
+              style={{ margin: "10px" }}
+              onClick={() => handlePage("next")}
+            >
               Next
             </button>
           </div>
@@ -159,6 +186,14 @@ const CandidateJobs = ({ jobs, user }) => {
                   <td>
                     <button
                       className="btn btn-secondary"
+                      disabled={
+                        application.application.application_status ===
+                          "Hired" ||
+                        application.application.application_status ===
+                          "Rejected"
+                          ? true
+                          : false
+                      }
                       onClick={() =>
                         handleShowModal(
                           application.job,

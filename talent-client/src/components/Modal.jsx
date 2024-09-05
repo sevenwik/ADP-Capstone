@@ -77,7 +77,7 @@ function Modal({ showModal, handleClose, job, handleSave, isCreatingNew }) {
     if (modalView === "Edit" && view !== "Edit") {
       setModalView("Applications");
       const response = await fetch(
-        `http://localhost:8081/api/applications/job/${job.id}`
+        `http://localhost:8081/api/applications/job/pagination/1?page=0&size=3`
       );
       response.json().then((data) => {
         setApplications(data);
@@ -148,7 +148,9 @@ function Modal({ showModal, handleClose, job, handleSave, isCreatingNew }) {
             {modalView === "Edit" ? (
               <form>
                 <div className="mb-3">
-                  <label className="form-label">Department</label>
+                  <label className="form-label">
+                    Department <span style={{ color: "red" }}>*</span>
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -158,7 +160,9 @@ function Modal({ showModal, handleClose, job, handleSave, isCreatingNew }) {
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Listing Title</label>
+                  <label className="form-label">
+                    Listing Title <span style={{ color: "red" }}>*</span>
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -168,7 +172,9 @@ function Modal({ showModal, handleClose, job, handleSave, isCreatingNew }) {
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Job Title</label>
+                  <label className="form-label">
+                    Job Title <span style={{ color: "red" }}>*</span>
+                  </label>
                   <input
                     type="text"
                     className="form-control"

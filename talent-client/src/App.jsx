@@ -14,10 +14,13 @@ function App() {
   const [users, setUsers] = useState();
   const [currentUser, setCurrentUser] = useState();
   const [jobs, setJobs] = useState();
-  const [pageState, setPageState] = useState("Login");
+  const [pageState, setPageState] = useState("Register");
 
   const handleRegister = (e) => {
     e.preventDefault();
+    if (currentUser) {
+      setCurrentUser();
+    }
     if (pageState === "Login") {
       setPageState("Register");
       nav("/signUp");
@@ -37,7 +40,11 @@ function App() {
           />
         </div>
         <button className="btn btn-primary" onClick={handleRegister}>
-          {pageState === "Login" ? "Sign Up" : "Sign In"}
+          {currentUser
+            ? "Sign Out"
+            : pageState === "Login"
+            ? "Sign Up"
+            : "Sign In"}
         </button>
       </div>
       <div

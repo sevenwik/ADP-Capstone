@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import com.example.talent_api.model.Application;
 import com.example.talent_api.model.ApplicationJob;
 import com.example.talent_api.model.Job;
@@ -37,6 +40,16 @@ public class ApplicationController {
     @GetMapping("/applications/job/{jobID}")
     public List<Application> getByJobId(@PathVariable(value="jobID") Long jobId) {
         return appRepository.getByJobId(jobId);
+    }
+
+    @GetMapping("/applications/job/pagination/{jobID}")
+    public List<Application> getPaginatedByJobId(
+            @PathVariable(value = "jobID") Long jobId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return appRepository.getByJobId(jobId, pageable).getContent();
     }
 
     @GetMapping("/applications/user/{userId}")

@@ -72,26 +72,34 @@ const Register = ({ setUsers }) => {
           boxShadow: "0px 14px 12px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <h1 style={{ textAlign: "center" }}>Register</h1>
+        <h3 style={{ textAlign: "center" }}>Register</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="form-label">Name</label>
+            <label className="form-label">
+              Name <span style={{ color: "red" }}>*</span>
+            </label>
             <input
               type="text"
               className="form-control"
               id="exampleInputEmail1"
               name="full_name"
+              placeholder="Enter your name"
               onChange={handleInputChange}
+              required
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Email</label>
+            <label className="form-label">
+              Email <span style={{ color: "red" }}>*</span>
+            </label>
             <input
               type="Email"
               className="form-control"
               id="exampleInputPassword1"
               name="email"
+              placeholder="Enter your e-mail"
               onChange={handleInputChange}
+              required
             />
           </div>
           <div className="mb-3">
@@ -101,6 +109,7 @@ const Register = ({ setUsers }) => {
               className="form-control"
               id="exampleInputPassword1"
               name="phone"
+              placeholder="Enter your phone number"
               onChange={handleInputChange}
             />
           </div>
@@ -111,27 +120,34 @@ const Register = ({ setUsers }) => {
               className="form-control"
               id="exampleInputPassword1"
               name="address"
+              placeholder="Enter your address"
               onChange={handleInputChange}
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Password</label>
+            <label className="form-label">
+              Password <span style={{ color: "red" }}>*</span>
+            </label>
             <input
               type="password"
               className="form-control"
               id="exampleInputPassword1"
               name="password"
               onChange={handleInputChange}
+              required
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Confirm Password</label>
+            <label className="form-label">
+              Confirm Password <span style={{ color: "red" }}>*</span>
+            </label>
             <input
               type="password"
               className="form-control"
               id="exampleInputPassword1"
               name="confirmPassword"
               onChange={handleInputChange}
+              required
             />
           </div>
           <div className="form-check form-switch"></div>
