@@ -13,7 +13,6 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
       [name]: value,
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:8081/api/login", {
@@ -35,7 +34,7 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
         });
       } else if (user.type === "candidate") {
         const users = await fetch(
-          `http://localhost:8081/api/jobs/pagination?page=${0}&size=${3}`
+          `http://localhost:8081/api/jobs/pagination?page=${0}&size=${6}`
         );
         users.json().then((data) => {
           setJobs(data);
@@ -51,13 +50,14 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
     <div className="login-div">
       <div
         style={{
-          border: "2px solid black",
+          border: "1px solid #ccc",
           padding: "20px",
-          borderRadius: 6,
-          boxShadow: "0px 14px 12px rgba(0, 0, 0, 0.1)",
+          borderRadius: 10,
+          boxShadow: "0px 0px 12px 8px rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#E4EBF7",
         }}
       >
-        <h1 style={{ textAlign: "center" }}>Log In</h1>
+        <h2 style={{ textAlign: "center", fontWeight: "bold" }}>Log In</h2>
         <form onSubmit={handleSubmit} className="was-validated">
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
@@ -87,11 +87,11 @@ const Login = ({ setUsers, setCurrentUser, setJobs }) => {
               required
             />
           </div>
-          <div className="form-check form-switch"></div>
           <button
             type="submit"
             disabled={formState.password === "" || formState.username === ""}
             className="btn btn-primary"
+            style={{ width: "100%", marginTop: "20px" }}
           >
             Sign In
           </button>

@@ -66,13 +66,14 @@ const Register = ({ setUsers }) => {
     <div className="login-div">
       <div
         style={{
-          border: "2px solid black",
+          border: "1px solid #ccc",
           padding: "20px",
-          borderRadius: 6,
-          boxShadow: "0px 14px 12px rgba(0, 0, 0, 0.1)",
+          borderRadius: 10,
+          boxShadow: "0px 0px 12px 8px rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#E4EBF7",
         }}
       >
-        <h3 style={{ textAlign: "center" }}>Register</h3>
+        <h2 style={{ textAlign: "center", fontWeight: "bold" }}>Register</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">
@@ -150,7 +151,6 @@ const Register = ({ setUsers }) => {
               required
             />
           </div>
-          <div className="form-check form-switch"></div>
           <button
             type="submit"
             disabled={
@@ -160,6 +160,7 @@ const Register = ({ setUsers }) => {
               formState.confirmPassword === ""
             }
             className="btn btn-primary"
+            style={{ width: "100%", marginTop: "20px" }}
           >
             Sign Up
           </button>

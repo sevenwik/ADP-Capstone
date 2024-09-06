@@ -6,7 +6,7 @@ import ManagerJobs from "./pages/ManagerJobs";
 import Register from "./pages/Register";
 import CandidateJobs from "./pages/CandidateJobs";
 import logo from "./assets/hire-vibes-logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 function App() {
@@ -14,8 +14,14 @@ function App() {
   const [users, setUsers] = useState();
   const [currentUser, setCurrentUser] = useState();
   const [jobs, setJobs] = useState();
-  const [pageState, setPageState] = useState("Register");
+  const [pageState, setPageState] = useState("Login");
 
+  useEffect(() => {
+    if (currentUser) {
+      console.log(currentUser);
+      setPageState("Register");
+    }
+  }, [currentUser]);
   const handleRegister = (e) => {
     e.preventDefault();
     if (currentUser) {
@@ -36,7 +42,7 @@ function App() {
           <img
             src={logo}
             alt="hire-vibes-logo"
-            style={{ width: "200px", height: "80px" }}
+            style={{ width: "180px", height: "80px" }}
           />
         </div>
         <button className="btn btn-primary" onClick={handleRegister}>

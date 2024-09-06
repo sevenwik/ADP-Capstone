@@ -82,17 +82,25 @@ const ApplicationsTable = ({ selectedApplications }) => {
             </tr>
           </thead>
           <tbody>
-            {applications.map((app) => (
-              <tr
-                key={app.id}
-                onClick={() => handleRowClick(app)}
-                style={{ cursor: "pointer" }}
-              >
-                <td>{app.id}</td>
-                <td>{app.application_status}</td>
-                <td>{app.dateApplied}</td>
+            {applications.length > 0 ? (
+              applications.map((app) => (
+                <tr
+                  key={app.id}
+                  onClick={() => handleRowClick(app)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <td>{app.id}</td>
+                  <td>{app.application_status}</td>
+                  <td>{app.dateApplied}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5} className="text-center p-2">
+                  No Applications For Now
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
         <button

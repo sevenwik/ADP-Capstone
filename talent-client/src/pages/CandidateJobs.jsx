@@ -85,7 +85,7 @@ const CandidateJobs = ({ jobs, user }) => {
     const users = await fetch(
       `http://localhost:8081/api/jobs/pagination?page=${
         direction === "next" ? page + 1 : page - 1
-      }&size=${3}`
+      }&size=${6}`
     );
     users.json().then((data) => {
       setCurrentJobs(data);
@@ -173,40 +173,48 @@ const CandidateJobs = ({ jobs, user }) => {
               </tr>
             </thead>
             <tbody>
-              {applications.map((application, index) => (
-                <tr key={index}>
-                  <td>{application.job.jobTitle}</td>
-                  <td>{application.job.department}</td>
-                  <td>{application.application.application_status}</td>
-                  <td>
-                    {new Date(
-                      application.application.dateApplied
-                    ).toLocaleDateString()}
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-secondary"
-                      disabled={
-                        application.application.application_status ===
-                          "Hired" ||
-                        application.application.application_status ===
-                          "Rejected"
-                          ? true
-                          : false
-                      }
-                      onClick={() =>
-                        handleShowModal(
-                          application.job,
-                          application.application,
-                          true
-                        )
-                      }
-                    >
-                      Edit
-                    </button>
+              {applications.length > 0 ? (
+                applications.map((application, index) => (
+                  <tr key={index}>
+                    <td>{application.job.jobTitle}</td>
+                    <td>{application.job.department}</td>
+                    <td>{application.application.application_status}</td>
+                    <td>
+                      {new Date(
+                        application.application.dateApplied
+                      ).toLocaleDateString()}
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-secondary"
+                        disabled={
+                          application.application.application_status ===
+                            "Hired" ||
+                          application.application.application_status ===
+                            "Rejected"
+                            ? true
+                            : false
+                        }
+                        onClick={() =>
+                          handleShowModal(
+                            application.job,
+                            application.application,
+                            true
+                          )
+                        }
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={5} className="text-center p-2">
+                    No Applications For Now{" "}
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
